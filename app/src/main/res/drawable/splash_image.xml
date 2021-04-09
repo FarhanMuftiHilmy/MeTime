@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/orange"/>
+    <item android:bottom="150dp" android:drawable="@drawable/ic_logo" android:gravity="center"/>
+    <item android:top="60dp" android:drawable="@drawable/ic_me_time" android:gravity="center"/>
+    <item android:top="120dp" android:drawable="@drawable/ic_your_digital_secretary" android:gravity="center"/>
+</layer-list>
