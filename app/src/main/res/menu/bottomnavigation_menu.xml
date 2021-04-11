@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard_menu"
+        android:title="Home"
+        android:icon="@drawable/check_home"
+        />
+
+    <item
+        android:id="@+id/calendar_menu"
+        android:title="Schedule"
+        android:icon="@drawable/check_calendar"/>
+
+    <item
+        android:id="@+id/time_menu"
+        android:title="Time"
+        android:icon="@drawable/check_time"/>
+
+    <item
+        android:id="@+id/note_menu"
+        android:title="Note"
+        android:icon="@drawable/check_note"/>
+</menu>
