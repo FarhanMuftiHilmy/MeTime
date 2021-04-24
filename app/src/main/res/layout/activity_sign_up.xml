@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.696" />
 
+
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
@@ -43,8 +44,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
-
+        app:layout_constraintVertical_bias="0.825" />
 
     <EditText
         android:id="@+id/email"
