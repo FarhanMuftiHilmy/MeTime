@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_AppCompat_NoActionBar);
+        setTheme(R.style.Theme_MeTime);
         setContentView(R.layout.activity_main);
 
         loadFragment(new DashboardFragment());

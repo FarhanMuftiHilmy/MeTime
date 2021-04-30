@@ -46,7 +46,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_AppCompat_NoActionBar);
+        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         setContentView(R.layout.activity_sign_in);
         mAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.email);

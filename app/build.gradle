@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 30
@@ -36,6 +37,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -43,5 +45,10 @@ dependencies {
     //onboard
     implementation 'com.github.msayan:tutorial-view:v1.0.10'
 
-    implementation 'com.github.kizitonwose:CalendarView:<latest-version>'
+    implementation 'com.github.kizitonwose:CalendarView:1.0.3'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

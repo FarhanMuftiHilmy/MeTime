@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.rechit.metime.view.ui.CalendarFragment;
 import com.rechit.metime.view.ui.DashboardFragment;
 import com.rechit.metime.view.ui.NoteFragment;
 import com.rechit.metime.view.ui.TimeFragment;
