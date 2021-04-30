@@ -42,4 +42,6 @@ dependencies {
 
     //onboard
     implementation 'com.github.msayan:tutorial-view:v1.0.10'
+
+    implementation 'com.github.kizitonwose:CalendarView:<latest-version>'
 }
