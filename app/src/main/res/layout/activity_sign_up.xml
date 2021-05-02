@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.SignUpActivity">
 
-
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
