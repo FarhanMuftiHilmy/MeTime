@@ -75,8 +75,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void register(final String username, String email, String password){
