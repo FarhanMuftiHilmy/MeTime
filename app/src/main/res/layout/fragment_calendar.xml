@@ -154,7 +154,5 @@
             tools:itemCount="7"
             tools:listitem="@layout/item_date"/>
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
