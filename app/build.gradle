@@ -42,6 +42,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+
     //onboard
     implementation 'com.github.msayan:tutorial-view:v1.0.10'
 
