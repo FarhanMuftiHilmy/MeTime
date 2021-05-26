@@ -2,15 +2,19 @@ package com.rechit.metime.view.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.rechit.metime.R;
+import com.rechit.metime.view.adapter.MainPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
 
     BottomNavigationView bottomNavigationView;
 
@@ -20,44 +24,61 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setTheme(R.style.Theme_MeTime);
         setContentView(R.layout.activity_main);
 
-        loadFragment(new DashboardFragment());
-        setBottomNavigationView();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
-        switch(item.getItemId()){
-            case R.id.dashboard_menu:
-                fragment = new DashboardFragment();
-                break;
-            case R.id.calendar_menu:
-                fragment = new CalendarFragment();
-                break;
-            case R.id.time_menu:
-                fragment = new TimeFragment();
-                break;
-            case R.id.note_menu:
-                fragment = new NoteFragment();
-                break;
-        }
-        return loadFragment(fragment);
-    }
-
-    private boolean loadFragment(Fragment fragment) {
-        if(fragment!=null){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
-            return true;
-        }
-        return false;
-    }
-
-    public void setBottomNavigationView() {
+        ViewPager viewPager = findViewById(R.id.vp_main);
         bottomNavigationView = findViewById(R.id.bn_main);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        MainPagerAdapter pagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        bottomNavigationView.setSelectedItemId(R.id.dashboard_menu);
+                        break;
+                    case 1:
+                        bottomNavigationView.setSelectedItemId(R.id.calendar_menu);
+                        break;
+                    case 2:
+                        bottomNavigationView.setSelectedItemId(R.id.time_menu);
+                        break;
+                    case 3:
+                        bottomNavigationView.setSelectedItemId(R.id.note_menu);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.dashboard_menu:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.calendar_menu:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.time_menu:
+                        viewPager.setCurrentItem(2);
+                        break;
+                    case R.id.note_menu:
+                        viewPager.setCurrentItem(3);
+                        break;
+                }
+                return true;
+            }
+        });
+
     }
+
 }
 

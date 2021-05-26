@@ -9,15 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme">
-        <activity android:name=".view.ui.SignUpActivity"/>
+        <activity android:name=".view.ui.SignUpActivity" />
         <activity android:name=".view.ui.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.MainActivity" android:theme="@style/Theme.MeTime"/>
+        <activity
+            android:name=".view.ui.MainActivity"
+            android:theme="@style/Theme.MeTime" />
+        <activity
+            android:name=".activity.AddEventActivity"
+            android:theme="@style/Theme.MeTime"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

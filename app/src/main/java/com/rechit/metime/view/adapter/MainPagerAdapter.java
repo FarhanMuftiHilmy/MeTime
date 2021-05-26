@@ -5,14 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.rechit.metime.view.ui.CalendarFragment;
+import com.rechit.metime.view.ui.CalenderFragment;
 import com.rechit.metime.view.ui.DashboardFragment;
 import com.rechit.metime.view.ui.NoteFragment;
 import com.rechit.metime.view.ui.TimeFragment;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
-    public MainPagerAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+    public MainPagerAdapter(@NonNull FragmentManager fm) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull
@@ -24,7 +24,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
                 fragment = new DashboardFragment();
                 break;
             case 1:
-                fragment = new CalendarFragment();
+                fragment = new CalenderFragment();
                 break;
             case 2:
                 fragment = new TimeFragment();

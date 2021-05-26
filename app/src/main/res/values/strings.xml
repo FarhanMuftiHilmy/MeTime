@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">MeTime</string>
     <string name="ss_text1">ME TIME</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //calender
+    <string name="hari_ini">Hari Ini</string>
+    <string name="judul">Title</string>
+    <string name="detail">Detail</string>
+    <string name="waktu">Time</string>
+    <string name="tambah_nama_aktivitas_anda">add your activity name here</string>
+    <string name="tambah_detail_aktivitas_anda">add your detail activity here</string>
+
+    //timetracking
+
+    //noteApps
+
+    //profile
 
 </resources>
