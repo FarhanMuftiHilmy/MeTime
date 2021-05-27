@@ -1,6 +1,9 @@
 package com.rechit.metime.model;
 
-public class Activity {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Activity implements Parcelable {
     public String id,title, description;
 
     public Activity(){
@@ -11,6 +14,24 @@ public class Activity {
         this.title = title;
         this.description = description;
     }
+
+    protected Activity(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Activity> CREATOR = new Creator<Activity>() {
+        @Override
+        public Activity createFromParcel(Parcel in) {
+            return new Activity(in);
+        }
+
+        @Override
+        public Activity[] newArray(int size) {
+            return new Activity[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -34,5 +55,17 @@ public class Activity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(description);
     }
 }

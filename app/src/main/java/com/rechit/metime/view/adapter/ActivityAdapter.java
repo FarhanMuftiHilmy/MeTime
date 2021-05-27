@@ -2,7 +2,6 @@ package com.rechit.metime.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.rechit.metime.R;
+import com.rechit.metime.activity.AddEventActivity;
 import com.rechit.metime.model.Activity;
+
 import java.util.ArrayList;
 
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityHolder> {
 
-    Context context;
-    ArrayList<Activity> activityList;
+    private Context context;
+    private ArrayList<Activity> activityList;
 
     public ActivityAdapter(Context context, ArrayList<Activity> activityList) {
         this.activityList = activityList;
@@ -32,8 +33,10 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
     @Override
     public void onBindViewHolder(@NonNull ActivityHolder holder, int position) {
+        Activity activity = activityList.get(position);
         holder.textViewTitle.setText(activityList.get(position).getTitle());
         holder.textViewDescription.setText(activityList.get(position).getDescription());
+
     }
 
     @Override
@@ -42,13 +45,23 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     }
 
 
-    public static class ActivityHolder extends RecyclerView.ViewHolder{
+    public class ActivityHolder extends RecyclerView.ViewHolder{
         TextView textViewTitle,textViewDescription;
 
         public ActivityHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.tv_title);
             textViewDescription = itemView.findViewById(R.id.tv_detail);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Activity activity = activityList.get(getAdapterPosition());
+                    Intent intent = new Intent(context, AddEventActivity.class);
+                    intent.putExtra("activities", activity);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
