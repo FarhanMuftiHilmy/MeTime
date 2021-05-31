@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:gravity="center"
+    tools:context=".view.ui.welcome.FragmentIntroA">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/onboard_satu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/image_onboard_tiga"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/txt_judul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/onborad_tiga_h1"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_below="@+id/onboard_satu"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="303dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@+id/txt_judul"
+        android:text="@string/onborad_tiga_h2"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_light"/>
+    =
+</RelativeLayout>
