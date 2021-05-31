@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MeTime" parent="Theme.MaterialComponents.Light">
+    <style name="Theme.MeTime" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/ColorPrimaryDark</item>
         <item name="colorPrimaryVariant">@color/ColorPrimaryDark</item>
@@ -13,12 +13,4 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="splashScreenTheme" parent="Theme.MaterialComponents">
-        <item name="android:windowBackground">@drawable/splash_image</item>
-        <item name="android:statusBarColor">@color/orange</item>
-    </style>
-    <style name = "NoActionBar" parent = "Theme.MaterialComponents.Light.NoActionBar">
-
-    </style>
-
 </resources>

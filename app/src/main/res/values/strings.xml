@@ -3,6 +3,19 @@
     <string name="ss_text1">ME TIME</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    //OnBoard
+    <string name="onborad_satu_h1">Manage Your Idea</string>
+    <string name="onborad_satu_h2">Save Your ideas, find your true potential</string>
+
+    <string name="onborad_dua_h1">Organize Your Schedule</string>
+    <string name="onborad_dua_h2">Do not miss any chance, stay organized </string>
+
+    <string name="onborad_tiga_h1">Be Time Efficient</string>
+    <string name="onborad_tiga_h2">Time is money, so do not waste any of it!</string>
+
+    <string name="lanjut">Next</string>
+    <string name="mulai">Start</string>
+
     //calender
     <string name="hari_ini">Hari Ini</string>
     <string name="judul">Title</string>
