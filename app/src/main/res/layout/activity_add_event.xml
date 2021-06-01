@@ -74,58 +74,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_detail" />
 
-    <RelativeLayout
-        android:id="@+id/rl_time"
+    <Button
+        android:id="@+id/btn_showdatepicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:text=""
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+
+    <Button
+        android:id="@+id/btn_showtimepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text=""
         android:layout_marginLeft="10dp"
-        app:layout_constraintStart_toEndOf="@+id/rl_date"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time">
-
-        <TextView
-            android:id="@+id/txt_showtimepicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_showtimepicker"
-            android:layout_marginBottom="15dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="09:00"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/btn_showtimepicker"
-            android:layout_width="51dp"
-            android:layout_height="35dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time">
-
-        <TextView
-            android:id="@+id/txt_showdatepicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_showdatepicker"
-            android:layout_marginBottom="15dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="30 Mei 2021"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/btn_showdatepicker"
-            android:layout_width="51dp"
-            android:layout_height="35dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </RelativeLayout>
+        app:layout_constraintStart_toEndOf="@+id/btn_showdatepicker"
+        app:layout_constraintTop_toBottomOf="@+id/txt_time" />
 
     <Button
         android:id="@+id/btn_save"
@@ -133,7 +99,6 @@
         android:layout_height="wrap_content"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/txt_time" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,8 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         Activity activity = activityList.get(position);
         holder.textViewTitle.setText(activityList.get(position).getTitle());
         holder.textViewDescription.setText(activityList.get(position).getDescription());
-
+        holder.textViewDate.setText(activityList.get(position).getDate());
+        holder.textViewTime.setText(activityList.get(position).getTime());
     }
 
     @Override
@@ -44,14 +45,15 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         return activityList.size();
     }
 
-
     public class ActivityHolder extends RecyclerView.ViewHolder{
-        TextView textViewTitle,textViewDescription;
+        TextView textViewTitle,textViewDescription, textViewDate, textViewTime;
 
         public ActivityHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.tv_title);
             textViewDescription = itemView.findViewById(R.id.tv_detail);
+            textViewDate = itemView.findViewById(R.id.tv_date);
+            textViewTime = itemView.findViewById(R.id.tv_time);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -49,20 +49,33 @@
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:src="@drawable/clock_image_calendar"
+                android:layout_marginTop="80dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time"
                 app:layout_constraintEnd_toStartOf="@+id/tv_time"
-                app:layout_constraintTop_toTopOf="@+id/tv_time"
-                android:layout_marginEnd="5dp"/>
+                app:layout_constraintTop_toTopOf="@+id/tv_time"/>
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="09:00"
+                android:textColor="@color/black"
                 android:textSize="11sp"
+                android:text="09:00"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Senin,31 Mei 2021"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail"
+                android:layout_marginTop="10dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
