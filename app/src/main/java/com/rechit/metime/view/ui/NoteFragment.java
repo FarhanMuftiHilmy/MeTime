@@ -11,7 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -28,12 +34,15 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.rechit.metime.R;
+import com.rechit.metime.activity.AddNoteActivity;
 import com.rechit.metime.activity.NoteEditorActivity;
+import com.rechit.metime.view.adapter.NoteAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +53,7 @@ public class NoteFragment extends Fragment {
 
     public static ArrayList<String> notes = new ArrayList<>();
     public static ArrayAdapter arrayAdapter;
+
 
     public NoteFragment() {
         // Required empty public constructor
@@ -88,85 +98,117 @@ public class NoteFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        GridView gridView = getView().findViewById(R.id.gridView);
+
+//        GridView gridView = getView().findViewById(R.id.gridView);
+
+
+
+        Toolbar toolbar = getView().findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
         FloatingActionButton fab = getView().findViewById(R.id.fab);
 
-        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
-        HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
+        RecyclerView noteList = getView().findViewById(R.id.noteList);
 
-        if (set == null) {
+        List<String> titles = new ArrayList<>();
+        List<String> content = new ArrayList<>();
 
-            notes.add("Example note");
-        } else {
-            notes = new ArrayList(set);
-        }
+        titles.add("Firs Note");
+        content.add("First Note Content Sample First Note Content Sample First Note Content Sample First Note Content Sample");
 
-        // Using custom listView Provided by Android Studio
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, notes){
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent){
-                // Cast the grid view current item as a text view
-                TextView tv_cell = (TextView) super.getView(position,convertView,parent);
+        titles.add("Second Note");
+        content.add("Second Note Content Sample");
 
-                // Set the item background color
-                tv_cell.setBackground(getResources().getDrawable(R.drawable.notes_border));
+        titles.add("Firs Note");
+        content.add("First Note Content Sample First Note Content Sample First Note Content Sample First Note Content Sample");
 
+        titles.add("Second Note");
+        content.add("Second Note Content Sample");
+
+        NoteAdapter adapter = new NoteAdapter(titles, content);
 
 
-                // Put item item text in cell center
-                tv_cell.setGravity(Gravity.CENTER);
 
-                // Return the modified item
-                return tv_cell;
-            }
-        };
+
+        noteList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        noteList.setAdapter(adapter);
+//
+//        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+//        HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
+//
+//        if (set == null) {
+//
+//            notes.add("Example note");
+//        } else {
+//            notes = new ArrayList(set);
+//        }
+//
+//        // Using custom listView Provided by Android Studio
+//        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, notes){
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent){
+//                // Cast the grid view current item as a text view
+//                TextView tv_cell = (TextView) super.getView(position,convertView,parent);
+//
+//                // Set the item background color
+//                tv_cell.setBackground(getResources().getDrawable(R.drawable.notes_border));
+//
+//
+//
+//                // Put item item text in cell center
+//                tv_cell.setGravity(Gravity.CENTER);
+//
+//                // Return the modified item
+//                return tv_cell;
+//            }
+//        };
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NoteEditorActivity.class);
+                Intent intent = new Intent(getContext(), AddNoteActivity.class);
                 startActivity(intent);
             }
         });
 
 
-        gridView.setAdapter(arrayAdapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                // Going from MainActivity to NotesEditorActivity
-                Intent intent = new Intent(getActivity(), NoteEditorActivity.class);
-                intent.putExtra("noteId", i);
-                startActivity(intent);
-
-            }
-        });
-
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                final int itemToDelete = i;
-                // To delete the data from the App
-                new AlertDialog.Builder(view.getContext())
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Are you sure?")
-                        .setMessage("Do you want to delete this note?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                notes.remove(itemToDelete);
-                                arrayAdapter.notifyDataSetChanged();
-                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
-                                HashSet<String> set = new HashSet(NoteFragment.notes);
-                                sharedPreferences.edit().putStringSet("notes", set).apply();
-                            }
-                        }).setNegativeButton("No", null).show();
-                return true;
-            }
-        });
+//        gridView.setAdapter(arrayAdapter);
+//
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                // Going from MainActivity to NotesEditorActivity
+//                Intent intent = new Intent(getActivity(), NoteEditorActivity.class);
+//                intent.putExtra("noteId", i);
+//                startActivity(intent);
+//
+//            }
+//        });
+//
+//        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                final int itemToDelete = i;
+//                // To delete the data from the App
+//                new AlertDialog.Builder(view.getContext())
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .setTitle("Are you sure?")
+//                        .setMessage("Do you want to delete this note?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                notes.remove(itemToDelete);
+//                                arrayAdapter.notifyDataSetChanged();
+//                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+//                                HashSet<String> set = new HashSet(NoteFragment.notes);
+//                                sharedPreferences.edit().putStringSet("notes", set).apply();
+//                            }
+//                        }).setNegativeButton("No", null).show();
+//                return true;
+//            }
+//        });
         super.onViewCreated(view, savedInstanceState);
     }
 }

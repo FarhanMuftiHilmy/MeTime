@@ -7,23 +7,39 @@
     tools:context=".view.ui.NoteFragment">
 
     <!--Adding a ListView -->
-    <GridView
-        android:id="@+id/gridView"
+<!--    <GridView-->
+<!--        android:id="@+id/gridView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:layout_weight="2"-->
+<!--        android:animateLayoutChanges="false"-->
+<!--        android:clipChildren="false"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:drawSelectorOnTop="true"-->
+<!--        android:gravity="center"-->
+<!--        android:horizontalSpacing="10dp"-->
+<!--        android:numColumns="auto_fit"-->
+<!--        android:scrollingCache="false"-->
+<!--        android:stretchMode="columnWidth"-->
+<!--        android:verticalSpacing="10dp"-->
+<!--        android:visibility="visible" />-->
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/noteList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="2"
-        android:animateLayoutChanges="false"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:drawSelectorOnTop="true"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:scrollingCache="false"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp"
-        android:visibility="visible" />
+        android:layout_marginTop="?attr/actionBarSize"/>
+
 
 
 

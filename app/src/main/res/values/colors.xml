@@ -12,6 +12,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#FEBD15</color>
 
+    <color name="red">#EC0F47</color>
+    <color name="orange2">#EE6B3B</color>
+    <color name="yellow">#FBBF54</color>
+    <color name="green">#ABD96D</color>
+    <color name="aqua">#15C286</color>
+
+
+
     <array name="array_dot_active">
         <item>@color/ColorPrimaryDark</item>
         <item>@color/ColorPrimaryDark</item>
