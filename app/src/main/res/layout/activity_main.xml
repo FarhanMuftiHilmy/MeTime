@@ -21,4 +21,6 @@
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottomnavigation_menu"/>
 
+
+
 </RelativeLayout>

@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,20 +23,28 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
-
+    ProgressBar progressBar;
     TextView sign_in;
     EditText username, email, password;
     Button btn_register;
 
     FirebaseAuth auth;
-    private DatabaseReference reference;
+    FirebaseFirestore fstore;
+
+    String userId;
+//    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,9 @@ public class SignUpActivity extends AppCompatActivity {
         sign_in = findViewById(R.id.sign_in);
 
         auth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
+
+        progressBar = findViewById(R.id.progressBar);
 
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +75,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String txt_username = Objects.requireNonNull(username.getText()).toString();
-                String txt_email = Objects.requireNonNull(email.getText()).toString();
-                String txt_password = Objects.requireNonNull(password.getText()).toString();
+                String txt_email = Objects.requireNonNull(email.getText()).toString().trim();
+                String txt_password = Objects.requireNonNull(password.getText()).toString().trim();
 
                 if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     Toast.makeText(SignUpActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
@@ -71,51 +85,69 @@ public class SignUpActivity extends AppCompatActivity {
                 } else{
                     register(txt_username, txt_email, txt_password);
                 }
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
 
-    private void register(final String username, String email, String password){
-        auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
-                            assert firebaseUser != null;
-                            String userid = firebaseUser.getUid();
-
-                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userid);
-                            hashMap.put("username", username);
-                            hashMap.put("imageURL", "default");
-                            hashMap.put("status", "offline");
-                            hashMap.put("search", username.toLowerCase());
-
-                            reference .setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(SignUpActivity.this, "You can't register with this email or password", Toast.LENGTH_SHORT).show();
-                            FirebaseAuthException e = (FirebaseAuthException )task.getException();
-                            Toast.makeText(SignUpActivity.this, "Failed Registration: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                });
-
-
-
+    private void register(String username, String email, String password){
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                } else{
+                    Toast.makeText(getBaseContext(), "Error!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
+
+
+
+//    private void register(final String username, String email, String password){
+//        auth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()){
+//
+//                            FirebaseUser firebaseUser = auth.getCurrentUser();
+//                            assert firebaseUser != null;
+//                            String userid = firebaseUser.getUid();
+//
+//                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+//
+//                            HashMap<String, String> hashMap = new HashMap<>();
+//                            hashMap.put("id", userid);
+//                            hashMap.put("username", username);
+//                            hashMap.put("imageURL", "default");
+//
+//
+//                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    if(task.isSuccessful()){
+//                                        progressBar.setVisibility(View.INVISIBLE);
+//                                        Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
+//                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//                                }
+//                            });
+//                        } else {
+//                            Toast.makeText(SignUpActivity.this, "You can't register with this email or password", Toast.LENGTH_SHORT).show();
+//                            FirebaseAuthException e = (FirebaseAuthException )task.getException();
+//                            Toast.makeText(SignUpActivity.this, "Failed Registration: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    }
+//                });
+//
+//
+//
+//    }
 }

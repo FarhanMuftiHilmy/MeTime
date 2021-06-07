@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ public class SignInActivity extends AppCompatActivity {
     Button btn_login;
 
     FirebaseUser firebaseUser;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -54,6 +57,8 @@ public class SignInActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         sign_up = findViewById(R.id.sign_up);
 
+        progressBar = findViewById(R.id.progressBar);
+
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +73,10 @@ public class SignInActivity extends AppCompatActivity {
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(SignInActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
 
                 } else{
