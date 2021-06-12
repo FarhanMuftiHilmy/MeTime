@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,13 +32,18 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.rechit.metime.R;
 import com.rechit.metime.activity.AddNoteActivity;
 import com.rechit.metime.activity.NoteEditorActivity;
+import com.rechit.metime.model.Note;
 import com.rechit.metime.view.adapter.NoteAdapter;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,6 +51,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +62,8 @@ public class NoteFragment extends Fragment {
 
     public static ArrayList<String> notes = new ArrayList<>();
     public static ArrayAdapter arrayAdapter;
+
+    FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
 
 
     public NoteFragment() {
@@ -104,8 +113,47 @@ public class NoteFragment extends Fragment {
 //        GridView gridView = getView().findViewById(R.id.gridView);
 
 
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        Query query = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Notes").orderBy("title", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class)
+                .build();
+
+        noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
+            @Override
+            protected void onBindViewHolder(@NonNull @NotNull NoteViewHolder holder, int position, @NonNull @NotNull Note model) {
+                holder.noteTitle.setText(model.getTitle());
+                holder.noteContent.setText(model.getContent());
+
+                final int code = getRandomColor();
+                holder.noteColor.setBackgroundTintList(holder.view.getResources().getColorStateList(code));
+
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(v.getContext(), NoteEditorActivity.class);
+                        i.putExtra("title", model.getTitle());
+                        i.putExtra("content", model.getContent());
+                        i.putExtra("code", code);
+                        v.getContext().startActivity(i);
+                    }
+                });
+            }
+
+            @NonNull
+            @NotNull
+            @Override
+            public NoteViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_view_layout, parent, false);
+                return new NoteViewHolder(view);
+            }
+        };
+
+
 
 
 
@@ -117,28 +165,9 @@ public class NoteFragment extends Fragment {
         RecyclerView noteList = getView().findViewById(R.id.noteList);
 
 
-        List<String> titles = new ArrayList<>();
-        List<String> content = new ArrayList<>();
-
-        titles.add("Firs Note");
-        content.add("First Note Content Sample First Note Content Sample First Note Content Sample First Note Content Sample");
-
-        titles.add("Second Note");
-        content.add("Second Note Content Sample");
-
-        titles.add("Firs Note");
-        content.add("First Note Content Sample First Note Content Sample First Note Content Sample First Note Content Sample");
-
-        titles.add("Second Note");
-        content.add("Second Note Content Sample");
-
-        NoteAdapter adapter = new NoteAdapter(titles, content);
-
-
-
 
         noteList.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        noteList.setAdapter(adapter);
+        noteList.setAdapter(noteAdapter);
 //
 //        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
 //        HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
@@ -217,5 +246,45 @@ public class NoteFragment extends Fragment {
 //            }
 //        });
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    public class NoteViewHolder extends RecyclerView.ViewHolder {
+        TextView noteTitle, noteContent;
+        View view;
+        AppCompatButton noteColor;
+
+        public NoteViewHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+            noteTitle = itemView.findViewById(R.id.titles);
+            noteContent = itemView.findViewById(R.id.content);
+            noteColor = itemView.findViewById(R.id.color);
+            view = itemView;
+        }
+    }
+    private int getRandomColor() {
+        List<Integer> colorCode = new ArrayList<>();
+        colorCode.add(R.color.red);
+        colorCode.add(R.color.orange2);
+        colorCode.add(R.color.yellow);
+        colorCode.add(R.color.green);
+        colorCode.add(R.color.aqua);
+
+        Random randomColor = new Random();
+        int number = randomColor.nextInt(colorCode.size());
+        return colorCode.get(number);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        noteAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(noteAdapter != null){
+            noteAdapter.stopListening();
+        }
     }
 }
