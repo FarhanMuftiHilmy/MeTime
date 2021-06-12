@@ -33,6 +33,8 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.rechit.metime.R;
 import com.rechit.metime.activity.AddNoteActivity;
 import com.rechit.metime.activity.NoteEditorActivity;
@@ -103,12 +105,17 @@ public class NoteFragment extends Fragment {
 
 
 
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+
+
         Toolbar toolbar = getView().findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         FloatingActionButton fab = getView().findViewById(R.id.fab);
 
         RecyclerView noteList = getView().findViewById(R.id.noteList);
+
 
         List<String> titles = new ArrayList<>();
         List<String> content = new ArrayList<>();

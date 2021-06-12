@@ -54,9 +54,9 @@ public class AddNoteActivity extends AppCompatActivity {
             String nTitle = noteTitle.getText().toString();
             String nContent = noteContent.getText().toString();
 
-            if(nTitle.isEmpty() || nContent.isEmpty()){
-                Toast.makeText(this, "Can't save with empty field", Toast.LENGTH_SHORT).show();
-            }
+//            if(nTitle.isEmpty() || nContent.isEmpty()){
+//                Toast.makeText(this, "Can't save with empty field", Toast.LENGTH_SHORT).show();
+//            }
 
             progressBar.setVisibility(View.VISIBLE);
 

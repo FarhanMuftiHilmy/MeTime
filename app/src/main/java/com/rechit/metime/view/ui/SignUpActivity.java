@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
+import com.rechit.metime.activity.AddNoteActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +36,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
+
+    private FirebaseUser fuser;
 
     ProgressBar progressBar;
     TextView sign_in;
@@ -86,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                     register(txt_username, txt_email, txt_password);
                 }
                 progressBar.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -96,6 +101,22 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
+                    userId  = auth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fstore.collection("User").document(userId).collection("Profile").document();
+                    Map<String, Object> userProfile = new HashMap<>();
+                    userProfile.put("username", username);
+                    userProfile.put("email", email);
+                    documentReference.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull @NotNull Exception e) {
+                            Log.w("TAG", "Error adding document", e);
+                        }
+                    });
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else{
                     Toast.makeText(getBaseContext(), "Error!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
