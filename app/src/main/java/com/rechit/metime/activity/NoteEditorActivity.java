@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import com.rechit.metime.view.ui.NoteFragment;
 import java.util.HashSet;
 
 public class NoteEditorActivity extends AppCompatActivity {
-
+    Intent data;
     int noteId;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser firebaseUser;
@@ -41,7 +42,7 @@ public class NoteEditorActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        Intent data = getIntent();
+        data = getIntent();
 
 
         TextView content = findViewById(R.id.noteEditorContent);
@@ -52,6 +53,30 @@ public class NoteEditorActivity extends AppCompatActivity {
         content.setText(data.getStringExtra("content"));
         title.setText(data.getStringExtra("title"));
         color.setBackgroundTintList(this.getResources().getColorStateList(data.getIntExtra("code", 0)));
+
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(NoteEditorActivity.this, EditNoteActivity.class);
+                i.putExtra("title", data.getStringExtra("title"));
+                i.putExtra("content", data.getStringExtra("content"));
+                i.putExtra("noteId", data.getStringExtra("noteId"));
+                startActivity(i);
+                finish();
+            }
+        });
+
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), EditNoteActivity.class);
+                i.putExtra("title", data.getStringExtra("title"));
+                i.putExtra("content", data.getStringExtra("content"));
+                i.putExtra("noteId", data.getStringExtra("noteId"));
+                startActivity(i);
+                finish();
+            }
+        });
 
 //        EditText editText = findViewById(R.id.editText);
 
@@ -102,5 +127,11 @@ public class NoteEditorActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }

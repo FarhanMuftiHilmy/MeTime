@@ -49,6 +49,8 @@ public class AddNoteActivity extends AppCompatActivity {
 
     }
 
+
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             String nTitle = noteTitle.getText().toString();
