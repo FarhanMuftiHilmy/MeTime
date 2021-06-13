@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity{
                         break;
                 }
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 

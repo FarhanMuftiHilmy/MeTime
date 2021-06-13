@@ -95,23 +95,20 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = UUID.randomUUID().toString();
-                String title= editTitle.getText().toString();
-                String desc = editDesc.getText().toString();
-                String date = btnDate.getText().toString();
-                String time = btnTime.getText().toString();
+        btnSave.setOnClickListener(v -> {
+            String id = UUID.randomUUID().toString();
+            String title= editTitle.getText().toString();
+            String desc = editDesc.getText().toString();
+            String date = btnDate.getText().toString();
+            String time = btnTime.getText().toString();
 
-                if (isUpdate){
-                    updateActivity(activity.getId(),title,desc, date, time);
-                }else {
-                    AddActivity(id, title, desc, date, time);
-                }
-
-                sendNotification(title, desc , id);
+            if (isUpdate){
+                updateActivity(activity.getId(),title,desc, date, time);
+            }else {
+                AddActivity(id, title, desc, date, time);
             }
+
+            sendNotification(title, desc , id);
         });
     }
 

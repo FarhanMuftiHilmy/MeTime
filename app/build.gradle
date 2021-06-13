@@ -52,6 +52,10 @@ dependencies {
     implementation 'com.google.android:flexbox:1.1.0'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.yashovardhan99.timeit:timeit:1.2.0'
+    implementation 'com.arsvechkarev:timerx:2.3.2'
+
 }
 repositories {
     mavenCentral()
