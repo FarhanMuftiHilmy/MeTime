@@ -78,7 +78,7 @@ public class EditNoteActivity extends AppCompatActivity {
         documentReference.update(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(EditNoteActivity.this, "Note Updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditNoteActivity.this, "Note Saved", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

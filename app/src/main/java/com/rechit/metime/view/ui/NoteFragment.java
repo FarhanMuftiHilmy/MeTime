@@ -31,13 +31,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.rechit.metime.R;
@@ -144,6 +148,36 @@ public class NoteFragment extends Fragment {
                         v.getContext().startActivity(i);
                     }
                 });
+
+                holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        new AlertDialog.Builder(view.getContext())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Are you sure?")
+                                .setMessage("Do you want to delete this note?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Notes").document(docId);
+                                        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                //note deleted
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull @NotNull Exception e) {
+                                                Toast.makeText(getContext(), "Error in deleting Notes", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        Toast.makeText(getContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).setNegativeButton("No", null).show();
+
+                        return true;
+                    }
+                });
             }
 
             @NonNull
@@ -170,6 +204,7 @@ public class NoteFragment extends Fragment {
 
         noteList.setLayoutManager(new GridLayoutManager(getContext(), 2));
         noteList.setAdapter(noteAdapter);
+
 //
 //        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
 //        HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
@@ -206,6 +241,15 @@ public class NoteFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddNoteActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        noteList.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getContext(), "Long Clicked", Toast.LENGTH_SHORT).show();
+
+                return true;
             }
         });
 
@@ -262,6 +306,7 @@ public class NoteFragment extends Fragment {
             noteColor = itemView.findViewById(R.id.color);
             view = itemView;
         }
+
     }
     private int getRandomColor() {
         List<Integer> colorCode = new ArrayList<>();
