@@ -95,23 +95,20 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = UUID.randomUUID().toString();
-                String title= editTitle.getText().toString();
-                String desc = editDesc.getText().toString();
-                String date = btnDate.getText().toString();
-                String time = btnTime.getText().toString();
+        btnSave.setOnClickListener(v -> {
+            String id = UUID.randomUUID().toString();
+            String title= editTitle.getText().toString();
+            String desc = editDesc.getText().toString();
+            String date = btnDate.getText().toString();
+            String time = btnTime.getText().toString();
 
-                if (isUpdate){
-                    updateActivity(activity.getId(),title,desc, date, time);
-                }else {
-                    AddActivity(id, title, desc, date, time);
-                }
-
-                sendNotification(title, desc , id);
+            if (isUpdate){
+                updateActivity(activity.getId(),title,desc, date, time);
+            }else {
+                AddActivity(id, title, desc, date, time);
             }
+
+            sendNotification(title, desc , id);
         });
     }
 
@@ -126,7 +123,7 @@ public class AddEventActivity extends AppCompatActivity {
         String date = btnDate.getText().toString();
         String time = btnTime.getText().toString();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/YY HH:mm", new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y HH:mm", new Locale("in", "ID"));
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTimeInMillis(dateFormat.parse(date+ " " + time).getTime());
@@ -231,7 +228,7 @@ public class AddEventActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/YY", new Locale("in", "ID"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/y", new Locale("in", "ID"));
                 String dateNow= simpleDateFormat.format(calendar.getTime());
                 btnDate.setText(dateNow);
             }
@@ -240,7 +237,7 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public static String getCurrentDate(){
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/YY", new Locale("in", "ID"));
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y", new Locale("in", "ID"));
         Date date = new Date();
         return dateFormat.format(date);
     }

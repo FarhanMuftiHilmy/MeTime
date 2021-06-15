@@ -28,10 +28,14 @@ import com.rechit.metime.R;
 import com.rechit.metime.activity.AddEventActivity;
 import com.rechit.metime.model.Activity;
 import com.rechit.metime.view.adapter.ActivityAdapter;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
-public class CalenderFragment extends Fragment {
+public class CalenderFragment extends Fragment implements ActivityAdapter.ActivityAdapterCallback{
 
+    private final String TAG = getClass().getSimpleName();
     private FirebaseFirestore db;
     private ActivityAdapter adapter;
     private RecyclerView rvListActivity;
@@ -60,7 +64,7 @@ public class CalenderFragment extends Fragment {
         rvListActivity = (RecyclerView) view.findViewById(R.id.rv_activity);
         rvListActivity.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         activitytList = new ArrayList<>();
-        adapter = new ActivityAdapter(getActivity(), activitytList);
+        adapter = new ActivityAdapter(getActivity(), activitytList, this);
         rvListActivity.setAdapter(adapter);
 
         db=FirebaseFirestore.getInstance();
@@ -107,4 +111,25 @@ public class CalenderFragment extends Fragment {
         });
     }
 
+    public void DeleteActivity( Activity activity) {
+        db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("Activity").document(activity.getId()).delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                        Toast.makeText(getActivity(), "Document Was Delete", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(getActivity(), "Error Delete Document", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, e.toString());
+            }
+        });
+    }
+
+    @Override
+    public void onActivityDelete(Activity activity) {
+        DeleteActivity(activity);
+    }
 }

@@ -6,4 +6,18 @@
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/poppins_light</item>
     </style>
+
+    <style name="ScrollView">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="ImageViewProfile">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/ic_no_profile</item>
+    </style>
+
+
+
 </resources>
