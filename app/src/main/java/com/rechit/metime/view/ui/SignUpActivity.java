@@ -102,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
                     userId  = auth.getCurrentUser().getUid();
-                    DocumentReference documentReference = fstore.collection("User").document(userId).collection("Profile").document();
+                    DocumentReference documentReference = fstore.collection("User").document(userId).collection("Profile").document("new");
                     Map<String, Object> userProfile = new HashMap<>();
                     userProfile.put("username", username);
                     userProfile.put("email", email);

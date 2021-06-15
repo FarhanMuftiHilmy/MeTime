@@ -7,9 +7,7 @@
     tools:context=".view.ui.DashboardFragment">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.ui.MainActivity">
@@ -21,9 +19,28 @@
             android:layout_marginLeft="27dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Hello, Let's Begin"
+            android:text="Hello, "
             android:textColor="#000000"
             android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="35dp"
+            android:layout_height="46dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="27dp"
+            android:background="@drawable/avatar" />
 
         <ImageView
             android:id="@+id/goal"
@@ -53,6 +70,7 @@
             android:layout_marginTop="36dp"
             android:background="@drawable/image_idea"
             />
+
 
 
 
