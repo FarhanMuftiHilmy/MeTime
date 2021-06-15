@@ -29,7 +29,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/img_clock" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_detail"
@@ -49,21 +49,21 @@
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:src="@drawable/clock_image_calendar"
-                android:layout_marginTop="80dp"
+                android:layout_marginRight="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time"
                 app:layout_constraintEnd_toStartOf="@+id/tv_time"
-                app:layout_constraintTop_toTopOf="@+id/tv_time"/>
+                app:layout_constraintTop_toTopOf="@+id/tv_time" />
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
+                android:text="09:00"
                 android:textColor="@color/black"
                 android:textSize="11sp"
-                android:text="09:00"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_title" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_date"

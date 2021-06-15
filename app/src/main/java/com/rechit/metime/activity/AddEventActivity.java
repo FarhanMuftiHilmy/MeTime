@@ -123,7 +123,7 @@ public class AddEventActivity extends AppCompatActivity {
         String date = btnDate.getText().toString();
         String time = btnTime.getText().toString();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/YY HH:mm", new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y HH:mm", new Locale("in", "ID"));
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTimeInMillis(dateFormat.parse(date+ " " + time).getTime());
@@ -228,7 +228,7 @@ public class AddEventActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/YY", new Locale("in", "ID"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/y", new Locale("in", "ID"));
                 String dateNow= simpleDateFormat.format(calendar.getTime());
                 btnDate.setText(dateNow);
             }
@@ -237,7 +237,7 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public static String getCurrentDate(){
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/YY", new Locale("in", "ID"));
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y", new Locale("in", "ID"));
         Date date = new Date();
         return dateFormat.format(date);
     }
