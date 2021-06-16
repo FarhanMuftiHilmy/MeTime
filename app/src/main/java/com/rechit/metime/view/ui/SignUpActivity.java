@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
 import com.rechit.metime.activity.AddNoteActivity;
+import com.rechit.metime.model.User;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -102,13 +103,24 @@ public class SignUpActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
                     userId  = auth.getCurrentUser().getUid();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
                     DocumentReference documentReference = fstore.collection("User").document(userId).collection("Profile").document("new");
-                    Map<String, Object> userProfile = new HashMap<>();
-                    userProfile.put("username", username);
-                    userProfile.put("email", email);
-                    documentReference.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    User user = new User();
+                    user.setId(firebaseUser.getUid());
+                    user.setUsername(username);
+                    user.setEmail(firebaseUser.getEmail());
+                    user.setImageUrl(getPhotoUrl(firebaseUser));
+                    //                    Map<String, Object> userProfile = new HashMap<>();
+//                    userProfile.put("username", username);
+//                    userProfile.put("email", email);
+//                    userProfile.put("imageUrl",  FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null? FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl(): "");
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
                             Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -123,6 +135,11 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String getPhotoUrl(FirebaseUser firebaseUser){
+        if (firebaseUser.getPhotoUrl() != null) return firebaseUser.getPhotoUrl().toString();
+        else return "default";
     }
 
 

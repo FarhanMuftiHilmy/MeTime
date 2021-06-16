@@ -1,16 +1,71 @@
 package com.rechit.metime.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.ViewModelProvider;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.rechit.metime.R;
+import com.rechit.metime.model.User;
+import com.rechit.metime.vievmodel.UserViewModel;
 
-public class ProfileActivity extends AppCompatActivity {
+import static com.rechit.metime.Utils.AppUtils.loadProfilePicFromUrl;
+
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        Log.d(getClass().getSimpleName(), "userId: " + firebaseUser.getUid());
+
+        Button btnLogOut = findViewById(R.id.btn_logout);
+        Button btnEdtProfile = findViewById(R.id.btn_edt_profile);
+        btnLogOut.setOnClickListener(this);
+        btnEdtProfile.setOnClickListener(this);
+
+        ImageView imgPhoto = findViewById(R.id.img_profile);
+        TextView tvUserName = findViewById(R.id.tv_nama_user);
+        TextView tvUserEmail = findViewById(R.id.tv_email_user);
+
+        UserViewModel userViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
+        userViewModel.getUserLiveData().observe(this, user ->  {
+            this.user = user;
+            loadProfilePicFromUrl(imgPhoto, user.getImageUrl());
+            tvUserName.setText(user.getUsername());
+            tvUserEmail.setText(user.getEmail());
+        });
+
+        userViewModel.query(firebaseUser.getUid());
+        userViewModel.addSnapshotListener(firebaseUser.getUid());
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.btn_edt_profile) {
+            Intent intent = new Intent(this, EditProfileActivity.class);
+            intent.putExtra("EXTRA_PROFILE", user);
+            startActivity(intent);
+        } else if (id == R.id.btn_logout) {
+            new AlertDialog.Builder(this)
+                    .setMessage("Apakah Anda Yakin Ingin Keluar?")
+                    .setNegativeButton("Tidak", null)
+                    .setPositiveButton("Ya", null);
+        }
     }
 }

@@ -1,18 +1,55 @@
 package com.rechit.metime.model;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
     private String id;
     private String username;
-    private String imageURL;
+    private String email;
+    private String imageUrl;
 
-    public User(String id, String username, String imageURL) {
+    public User (String id, String username, String imageUrl, String email) {
         this.id = id;
         this.username = username;
-        this.imageURL = imageURL;
+        this.email = email;
+        this.imageUrl = imageUrl;
     }
 
-    public User() {
+    public User() {}
+
+    protected User(Parcel in) {
+        id = in.readString();
+        username = in.readString();
+        email = in.readString();
+        imageUrl = in.readString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(username);
+        dest.writeString(email);
+        dest.writeString(imageUrl);
+    }
+
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -30,11 +67,16 @@ public class User {
         this.username = username;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
 }

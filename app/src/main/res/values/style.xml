@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
+    <style name="Button.Primary">
+        <item name="android:background">@drawable/background_button_yellow</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Button.Secondary">
+        <item name="android:background">@drawable/btn_bg</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Button.Tertiary">
+        <item name="android:background">@drawable/btn_bg_login</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="EditText">
         <item name="android:background">@drawable/background_edit_text</item>
-        <item name="android:padding">2dp</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/poppins_light</item>
     </style>
 

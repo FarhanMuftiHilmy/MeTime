@@ -5,11 +5,11 @@
         <solid
             android:color="@color/ColorPrimaryDark"/>
         <stroke
-            android:color="@color/white"
+            android:color="@color/ColorPrimaryDark"
             android:width="1dp"/>
 
         <corners
-            android:radius="5dp"/>
+            android:radius="20dp"/>
     </shape>
 </item>
 </selector>

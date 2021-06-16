@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,15 +33,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.rechit.metime.R;
 import com.rechit.metime.activity.ProfileActivity;
 import com.rechit.metime.model.Activity;
+import com.rechit.metime.model.User;
+import com.rechit.metime.vievmodel.UserViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import static com.rechit.metime.Utils.AppUtils.loadProfilePicFromUrl;
+
 
 public class DashboardFragment extends Fragment {
-
+    private User user;
 
     private View view;
-    private ImageView goal,time,idea,img_profile;
+    private ImageView goal,time,idea,imgPhoto;
     private TextView username;
 
     @Override
@@ -56,7 +61,7 @@ public class DashboardFragment extends Fragment {
         goal = view.findViewById(R.id.goal);
         time = view.findViewById(R.id.time);
         idea = view.findViewById(R.id.idea);
-        img_profile = view.findViewById(R.id.img_profile);
+        imgPhoto = view.findViewById(R.id.img_profile);
         username = view.findViewById(R.id.username);
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bn_main);
@@ -64,26 +69,37 @@ public class DashboardFragment extends Fragment {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Profile").document("new");
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
+            this.user = user;
+            loadProfilePicFromUrl(imgPhoto, user.getImageUrl());
+            username.setText(user.getUsername());
 
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    String name = documentSnapshot.getString("username");
-
-                    username.setText(name);
-
-                } else{
-                    Toast.makeText(getActivity(), "Dokumen tidak ada", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(getActivity(), "Data Error"+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
+
+        userViewModel.query(firebaseUser.getUid());
+        userViewModel.addSnapshotListener(firebaseUser.getUid());
+
+//        DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Profile").document("new");
+//
+//        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if(documentSnapshot.exists()){
+//                    String name = documentSnapshot.getString("username");
+//
+//                    username.setText(name);
+//
+//                } else{
+//                    Toast.makeText(getActivity(), "Dokumen tidak ada", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull @NotNull Exception e) {
+//                Toast.makeText(getActivity(), "Data Error"+e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         goal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +120,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        img_profile.setOnClickListener(new View.OnClickListener() {
+        imgPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ProfileActivity.class));
