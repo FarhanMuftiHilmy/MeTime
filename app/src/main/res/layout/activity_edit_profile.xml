@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.EditProfileActivity">
+
+    <ScrollView
+        style="@style/ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto Profile"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="14dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_photo_edit"
+                    style="@style/ImageViewProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"/>
+
+                <Button
+                    android:id="@+id/btn_img_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pilih Foto"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/txt_username_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Name"/>
+
+            <EditText
+                style="@style/EditText"
+                android:id="@+id/txt_email_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="User Name"/>
+
+            <Button
+                android:id="@+id/btn_save_edit"
+                style="@style/Button.Primary"
+                android:text="Perbarui Profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
