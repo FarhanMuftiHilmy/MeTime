@@ -24,6 +24,7 @@
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="About Application"
                 android:textColor="#3E3E3E" />
 
@@ -54,12 +55,40 @@
             android:layout_width="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:background="#EEE"
-                android:gravity="center"
-                android:layout_height="100dp"
-                android:layout_width="match_parent"
-                android:text="content" />
+<!--            <TextView-->
+<!--                android:background="#EEE"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:text="content" />-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_light"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="258dp"
+                    android:text="Version :" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_light"
+                    android:layout_gravity="start"
+                    android:text="1.0" />
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

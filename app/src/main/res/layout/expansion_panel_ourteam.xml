@@ -25,6 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="Our Team"
                 android:textColor="#3E3E3E" />
 
@@ -53,14 +54,25 @@
             android:id="@+id/container"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:paddingStart="16dp"
+            android:paddingRight="16dp"
             android:orientation="vertical">
 
             <TextView
-                android:background="#EEE"
-                android:gravity="center"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="content" />
+                android:fontFamily="@font/poppins_light"
+                android:text="Farhan Mufti Hilmy" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/poppins_light"
+                android:text="Harine Amalia Rachma" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/poppins_light"
+                android:text="Hubertus Rino Augenio" />
 
         </LinearLayout>
 
