@@ -90,13 +90,14 @@ public class SignUpActivity extends AppCompatActivity {
                 } else{
                     register(txt_username, txt_email, txt_password);
                 }
-                progressBar.setVisibility(View.VISIBLE);
+
 
             }
         });
     }
 
     private void register(String username, String email, String password){
+        progressBar.setVisibility(View.VISIBLE);
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
@@ -129,8 +130,8 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.w("TAG", "Error adding document", e);
                         }
                     });
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else{
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(getBaseContext(), "Error!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }

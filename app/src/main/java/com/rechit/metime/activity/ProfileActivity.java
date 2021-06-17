@@ -3,6 +3,8 @@ package com.rechit.metime.activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.rechit.metime.R;
 import com.rechit.metime.model.User;
 import com.rechit.metime.vievmodel.UserViewModel;
+import com.rechit.metime.view.ui.SignInActivity;
 
 import static com.rechit.metime.Utils.AppUtils.loadProfilePicFromUrl;
 
@@ -65,7 +68,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             new AlertDialog.Builder(this)
                     .setMessage("Apakah Anda Yakin Ingin Keluar?")
                     .setNegativeButton("Tidak", null)
-                    .setPositiveButton("Ya", null);
+                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                            finish();
+                        }
+                    }).show();
         }
     }
 }

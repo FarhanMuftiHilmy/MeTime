@@ -91,6 +91,7 @@ public class SignInActivity extends AppCompatActivity {
                                         finish();
                                     } else{
                                         Toast.makeText(SignInActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
                                     }
                                 }
                             });
