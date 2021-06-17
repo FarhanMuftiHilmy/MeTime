@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.rechit.metime.R;
@@ -54,6 +55,36 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         userViewModel.query(firebaseUser.getUid());
         userViewModel.addSnapshotListener(firebaseUser.getUid());
+
+        ExpansionLayout expansionLayoutAbout = findViewById(R.id.expansionLayoutAbout);
+        ExpansionLayout expansionLayoutOurTeam = findViewById(R.id.expansionLayoutOurTeam);
+        ExpansionLayout expansionLayoutHelpCenter = findViewById(R.id.expansionLayoutHelpCenter);
+        ExpansionLayout expansionLayoutLanguage = findViewById(R.id.expansionLayoutLanguage);
+        expansionLayoutAbout.addListener(new ExpansionLayout.Listener() {
+            @Override
+            public void onExpansionChanged(ExpansionLayout expansionLayout, boolean expanded) {
+
+            }
+        });
+        expansionLayoutOurTeam.addListener(new ExpansionLayout.Listener() {
+            @Override
+            public void onExpansionChanged(ExpansionLayout expansionLayout, boolean expanded) {
+
+            }
+        });
+        expansionLayoutHelpCenter.addListener(new ExpansionLayout.Listener() {
+            @Override
+            public void onExpansionChanged(ExpansionLayout expansionLayout, boolean expanded) {
+
+            }
+        });
+        expansionLayoutLanguage.addListener(new ExpansionLayout.Listener() {
+            @Override
+            public void onExpansionChanged(ExpansionLayout expansionLayout, boolean expanded) {
+
+            }
+        });
+
     }
 
 

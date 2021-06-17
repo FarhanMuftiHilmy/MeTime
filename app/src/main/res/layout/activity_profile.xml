@@ -75,6 +75,23 @@
                 android:paddingHorizontal="24dp"
                 android:background="@color/orange"/>
 
+            <!--expansionpanelabout-->
+
+            <include layout="@layout/expansion_panel_about"/>
+
+            <!--expansionpanelourteam-->
+
+            <include layout="@layout/expansion_panel_ourteam"/>
+
+            <!--expansionpanelhelpcenter-->
+
+            <include layout="@layout/expansion_panel_helpcenter"/>
+
+            <!--expansionpanellanguage-->
+
+            <include layout="@layout/expansion_panel_language"/>
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout"
                 android:layout_width="wrap_content"
