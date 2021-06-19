@@ -1,7 +1,22 @@
 <resources>
+
+    <string name="content_description">ImageView</string>
+
     <string name="app_name">MeTime</string>
     <string name="ss_text1">ME TIME</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //signUp - signIn
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signUp">Sign Up</string>
+    <string name="signIn">Sign In</string>
+    <string name="forgot_your_password">Forgot Your Password?</string>
+    <string name="already_have_account">Already Have Account?</string>
+    <string name="continue_with_google">Continue With Google</string>
+    <string name="or">Or</string>
+    <string name="dont_have_account">Not Have Account?</string>
 
     //OnBoard
     <string name="onborad_satu_h1">Manage Your Idea</string>
