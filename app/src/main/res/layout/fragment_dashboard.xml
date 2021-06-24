@@ -47,7 +47,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="36dp"
             android:background="@drawable/image_goals"
+            android:visibility="invisible"
             />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_activity_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_above="@+id/time"
+            android:layout_below="@+id/welcome"
+            tools:listitem="@layout/item_activity" />
 
         <ImageView
             android:id="@+id/time"
@@ -56,7 +65,15 @@
             android:layout_below="@+id/goal"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="36dp"
-            android:background="@drawable/image_time" />
+            android:background="@drawable/image_time"
+            android:visibility="invisible"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_time_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/goal"
+            android:layout_above="@+id/idea"
+            tools:listitem="@layout/item_activity" />
         <ImageView
             android:id="@+id/idea"
             android:layout_width="wrap_content"
@@ -65,7 +82,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="36dp"
             android:background="@drawable/image_idea"
+            android:visibility="invisible"
             />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_note_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="36dp"
+            android:layout_below="@+id/time"
+            tools:listitem="@layout/note_view_layout" />
 
     </RelativeLayout>
 

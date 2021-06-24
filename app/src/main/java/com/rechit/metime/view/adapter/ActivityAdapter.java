@@ -23,7 +23,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
     private Context context;
     private ArrayList<Activity> activityList;
-    private ActivityAdapterCallback activityCallback;
+    public ActivityAdapterCallback activityCallback;
 
     public ActivityAdapter(Context context, ArrayList<Activity> activityList, ActivityAdapter.ActivityAdapterCallback activityCallback) {
         this.activityList = activityList;

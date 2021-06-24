@@ -52,7 +52,7 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calender, container, false);
 
-        fabAdd = view.findViewById(R.id.fab_add);
+        fabAdd = view.findViewById(R.   id.fab_add);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
