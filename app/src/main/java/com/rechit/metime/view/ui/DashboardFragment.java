@@ -282,7 +282,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        //TIME DISPLAY  
+        //TIME DISPLAY
         rvListTime.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         TimeAdapter adapter = new TimeAdapter(this::onTimeDeleted);
         rvListTime.setAdapter(adapter);

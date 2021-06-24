@@ -49,13 +49,20 @@
             android:background="@drawable/image_goals"
             android:visibility="invisible"
             />
+        <TextView
+            android:id="@+id/txt_goal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcome"
+            android:layout_marginTop="36dp"
+            android:text="Get Your Goals Today" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_activity_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="8dp"
             android:layout_above="@+id/time"
-            android:layout_below="@+id/welcome"
+            android:layout_below="@+id/txt_goal"
             tools:listitem="@layout/item_activity" />
 
         <ImageView
@@ -67,13 +74,22 @@
             android:layout_marginTop="36dp"
             android:background="@drawable/image_time"
             android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_below="@id/goal"
+            android:text="Set Your Time Today" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_time_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/goal"
+            android:layout_below="@+id/txt_time"
             android:layout_above="@+id/idea"
-            tools:listitem="@layout/item_activity" />
+            android:layout_marginTop="8dp"
+            tools:listitem="@layout/item_time_tracking" />
         <ImageView
             android:id="@+id/idea"
             android:layout_width="wrap_content"
@@ -84,14 +100,25 @@
             android:background="@drawable/image_idea"
             android:visibility="invisible"
             />
+        <TextView
+            android:id="@+id/txt_idea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time"
+            android:layout_marginTop="36dp"
+            android:text="Thinking Your Idea" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_note_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="36dp"
-            android:layout_below="@+id/time"
+            android:layout_below="@+id/txt_idea"
             tools:listitem="@layout/note_view_layout" />
+
+
+
+
 
     </RelativeLayout>
 
