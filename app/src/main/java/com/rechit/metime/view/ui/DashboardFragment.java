@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -45,15 +46,22 @@ import com.rechit.metime.activity.ProfileActivity;
 import com.rechit.metime.model.Activity;
 import com.rechit.metime.model.Item;
 import com.rechit.metime.model.Note;
+import com.rechit.metime.model.Time;
 import com.rechit.metime.model.User;
+import com.rechit.metime.vievmodel.TimeViewModel;
 import com.rechit.metime.vievmodel.UserViewModel;
 import com.rechit.metime.view.adapter.ActivityAdapter;
+import com.rechit.metime.view.adapter.TimeAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
+
+import timerx.Stopwatch;
+import timerx.StopwatchBuilder;
 
 import static com.rechit.metime.Utils.AppUtils.loadProfilePicFromUrl;
 
@@ -70,6 +78,7 @@ public class DashboardFragment extends Fragment {
     private RecyclerView rvListActivity;
     private ArrayList<Item> items;
     private ArrayList<Activity> activitytList;
+    private TimeViewModel tvm;
     FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
 
 
@@ -95,7 +104,7 @@ public class DashboardFragment extends Fragment {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         RecyclerView noteList = view.findViewById(R.id.rv_note_dashboard);
-        RecyclerView rvListTime = (RecyclerView) view.findViewById(R.id.rv_time_activity);
+        RecyclerView rvListTime = view.findViewById(R.id.rv_time_dashboard);
 
 
 
@@ -273,6 +282,19 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        //TIME DISPLAY  
+        rvListTime.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        TimeAdapter adapter = new TimeAdapter(this::onTimeDeleted);
+        rvListTime.setAdapter(adapter);
+
+        tvm = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TimeViewModel.class);
+        tvm.getTimeListLiveData().observe(getViewLifecycleOwner(), adapter::setData);
+
+        if (firebaseUser !=null){
+            tvm.query();
+            tvm.addSnapshotListener();
+        }
+
 
         // Inflate the layout for this fragment
         return view;
@@ -361,6 +383,10 @@ public class DashboardFragment extends Fragment {
                 Log.d(TAG, e.toString());
             }
         });
+    }
+
+    public void onTimeDeleted(Time time) {
+        tvm.delete(time);
     }
 
 }
