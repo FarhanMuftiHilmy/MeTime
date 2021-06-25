@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,13 +26,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
+import com.rechit.metime.database.DatabaseHelper;
 import com.rechit.metime.model.Time;
 import com.rechit.metime.vievmodel.TimeViewModel;
 import com.rechit.metime.view.adapter.TimeAdapter;
+import com.rechit.metime.widget.WidgetProvider;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -43,6 +49,9 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
     private TextView timeProgres, activityProgres;
     private Button btnStart;
     private TimeViewModel tvm;
+    private final ArrayList<Time> timeList = new ArrayList<>();
+    private WidgetProvider widgetProvider;
+    private DatabaseHelper dbHelper;
 
     public TimeFragment(){
 
@@ -74,7 +83,16 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
         rvListTime.setAdapter(adapter);
 
         tvm = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TimeViewModel.class);
-        tvm.getTimeListLiveData().observe(getViewLifecycleOwner(), adapter::setData);
+//        tvm.getTimeListLiveData().observe(getViewLifecycleOwner(), adapter::setData);
+        tvm.getTimeListLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Time>>() {
+            @Override
+            public void onChanged(ArrayList<Time> times) {
+                adapter.setData(times);
+                submitData(times);
+            }
+        });
+
+        dbHelper = new DatabaseHelper(getActivity());
 
         if (firebaseUser !=null){
             tvm.query();
@@ -122,4 +140,16 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
     public void onTimeDeleted(Time time) {
         tvm.delete(time);
     }
+
+    //sqLite For Widget
+    public void submitData(ArrayList<Time> timeList){
+        dbHelper.deleteFromDatabase();
+
+        for(int i = 0; i < timeList.size(); i++){
+            dbHelper.addToDatabase(timeList.get(i).getTitleTime(), timeList.get(i).getTrackingTime());
+        }
+        widgetProvider.sendBroadcastRefresh(getContext());
+
+    }
+
 }

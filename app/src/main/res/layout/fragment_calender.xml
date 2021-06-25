@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/calender_view"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/hari_ini"
+            android:text="@string/today"
             android:textSize="19sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

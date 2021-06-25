@@ -32,17 +32,23 @@
     <string name="mulai">Start</string>
 
     //calender
-    <string name="hari_ini">Hari Ini</string>
-    <string name="judul">Title</string>
+    <string name="today_actvity">Today Activity</string>
+    <string name="today">Today</string>
+    <string name="title">Title</string>
     <string name="detail">Detail</string>
-    <string name="waktu">Time</string>
-    <string name="tambah_nama_aktivitas_anda">add your activity name here</string>
-    <string name="tambah_detail_aktivitas_anda">add your detail activity here</string>
+    <string name="time">Time</string>
+    <string name="add_your_activity_here">add your activity here</string>
+    <string name="add_your_detail_activity_here">add your detail activity here</string>
+    <string name="save">Save</string>
 
     //timetracking
-    <string name="apa_yang_anda_kerjakan">what are you working for?</string>
+    <string name="what_are_you_working">what are you working?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
     //noteApps
 
     //profile
+    <string name="loading">Loading</string>
+    <string name="zero_time">00:00</string>
 
 </resources>

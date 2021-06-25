@@ -107,7 +107,6 @@ public class AddEventActivity extends AppCompatActivity {
             }else {
                 AddActivity(id, title, desc, date, time);
             }
-
             sendNotification(title, desc , id);
         });
     }
@@ -131,7 +130,7 @@ public class AddEventActivity extends AppCompatActivity {
             Log.e(TAG,"error",e);
             e.printStackTrace();
         }
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notifPendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), notifPendingIntent);
     }
 
     public void AddActivity(String id, String title, String desc, String date, String time){
@@ -228,7 +227,7 @@ public class AddEventActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/y", new Locale("in", "ID"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/y", Locale.getDefault());
                 String dateNow= simpleDateFormat.format(calendar.getTime());
                 btnDate.setText(dateNow);
             }
@@ -237,12 +236,13 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public static String getCurrentDate(){
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y", new Locale("in", "ID"));
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/y", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }
+
     public static String getCurrentTime(){
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm", new Locale("in", "ID"));
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         Date time = new Date();
         return timeFormat.format(time);
     }

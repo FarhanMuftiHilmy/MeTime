@@ -21,7 +21,6 @@
     <color name="aqua">#15C286</color>
 
 
-
     <array name="array_dot_active">
         <item>@color/ColorPrimaryDark</item>
         <item>@color/ColorPrimaryDark</item>
@@ -33,5 +32,9 @@
         <item>@color/gray_white</item>
         <item>@color/gray_white</item>
     </array>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 
 </resources>

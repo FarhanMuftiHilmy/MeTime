@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.rechit.metime.R;
+import com.rechit.metime.database.DatabaseHelper;
 import com.rechit.metime.model.Time;
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder> {
 
     private final ArrayList<Time> timeList = new ArrayList<>();
     private TimeAdapterCallback callback;
+    private DatabaseHelper dbHelper;
 
     public TimeAdapter(TimeAdapterCallback callback) {
         this.callback = callback;
@@ -77,4 +79,5 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder> {
     public interface TimeAdapterCallback{
         void onTimeDeleted(Time time);
     }
+
 }
