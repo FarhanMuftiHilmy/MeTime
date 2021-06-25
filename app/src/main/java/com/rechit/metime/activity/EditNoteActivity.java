@@ -78,12 +78,12 @@ public class EditNoteActivity extends AppCompatActivity {
         documentReference.update(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(EditNoteActivity.this, "Note Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditNoteActivity.this, R.string.note_saved, Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(EditNoteActivity.this, "Error, Try Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditNoteActivity.this, R.string.error_try_again, Toast.LENGTH_SHORT).show();
             }
         });
 

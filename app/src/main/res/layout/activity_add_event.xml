@@ -5,115 +5,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddEventActivity"
-    android:padding="20dp">
+    tools:context=".activity.AddEventActivity">
 
-    <TextView
-        android:id="@+id/txt_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/today_actvity"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:fontFamily="@font/poppins_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_title"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/container_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/title"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_activity" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/edt_title"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:gravity="start"
-        android:inputType="textImeMultiLine"
-        android:padding="10dp"
-        android:importantForAutofill="no"
-        android:hint="@string/add_your_activity_here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    <TextView
-        android:id="@+id/txt_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/detail"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_title" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/today_actvity"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edt_detail"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="114dp"
-        android:ems="10"
-        android:gravity="start"
-        android:inputType="textMultiLine"
-        android:padding="10dp"
-        android:importantForAutofill="no"
-        android:hint="@string/add_your_detail_activity_here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_detail" />
+        </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/txt_time"
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textColor="@color/black"
-        android:fontFamily="@font/poppins_medium"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_detail" />
+        android:padding="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/container_bar">
 
-    <Button
-        android:id="@+id/btn_showdatepicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:fontFamily="@font/poppins_semibold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/title"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_showtimepicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:text=""
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/btn_showdatepicker"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+        <EditText
+            android:id="@+id/edt_title"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:gravity="start"
+            android:inputType="textImeMultiLine"
+            android:padding="10dp"
+            android:importantForAutofill="no"
+            android:hint="@string/add_your_activity_here"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+        <TextView
+            android:id="@+id/txt_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/detail"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_title" />
+
+        <EditText
+            android:id="@+id/edt_detail"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:ems="10"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:importantForAutofill="no"
+            android:hint="@string/add_your_detail_activity_here"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_detail" />
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_detail" />
+
+        <Button
+            android:id="@+id/btn_showdatepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+
+        <Button
+            android:id="@+id/btn_showtimepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text=""
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/btn_showdatepicker"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

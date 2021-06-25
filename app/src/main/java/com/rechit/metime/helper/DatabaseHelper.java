@@ -1,4 +1,4 @@
-package com.rechit.metime.database;
+package com.rechit.metime.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.rechit.metime.model.Time;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

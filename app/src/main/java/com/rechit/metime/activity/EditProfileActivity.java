@@ -2,6 +2,7 @@ package com.rechit.metime.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
@@ -9,10 +10,13 @@ import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rechit.metime.R;
 import com.rechit.metime.Utils.LoadingDialog;
@@ -38,6 +42,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new LoadingDialog(this, false);
 
@@ -74,9 +81,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             String email = getFixText(edtEmail);
 
             if (name.isEmpty() || email.isEmpty()){
-                if (name.isEmpty()) edtUserName.setError("Masukkan Nama Lengkap");
-                if (email.isEmpty()) edtEmail.setError("Masukkan alamat");
-                showToast(this, "Pastikan data yang diisi lengkap");
+//                if (name.isEmpty()) edtUserName.setError("Masukan Nama");
+//                if (email.isEmpty()) edtEmail.setError("Masukan Email");
+//                showToast(this, "Pastikan data yang diisi lengkap");
+                Toast.makeText(this, R.string.field_cannot_empty, Toast.LENGTH_SHORT).show();
                 return;
             }
 

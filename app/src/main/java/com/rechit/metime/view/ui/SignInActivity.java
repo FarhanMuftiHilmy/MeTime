@@ -77,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(SignInActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInActivity.this, R.string.field_cannot_empty, Toast.LENGTH_SHORT).show();
 
                 } else{
                     mAuth.signInWithEmailAndPassword(txt_email, txt_password)
@@ -90,7 +90,7 @@ public class SignInActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     } else{
-                                        Toast.makeText(SignInActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignInActivity.this, "", Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.INVISIBLE);
                                     }
                                 }

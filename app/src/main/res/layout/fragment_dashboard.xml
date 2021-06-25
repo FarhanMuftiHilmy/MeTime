@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/welcome"
             android:layout_marginTop="36dp"
-            android:text="Get Your Goals Today" />
+            android:text="@string/get_your_goals" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_activity_dashboard"
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_below="@id/goal"
-            android:text="Set Your Time Today" />
+            android:text="@string/set_your_time" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_time_dashboard"
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/time"
             android:layout_marginTop="36dp"
-            android:text="Thinking Your Idea" />
+            android:text="@string/thinking_your_idea" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_note_dashboard"
             android:layout_width="match_parent"

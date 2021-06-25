@@ -46,8 +46,8 @@
 
             <ImageView
                 android:id="@+id/img_clock"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/clock_image_calendar"
                 android:layout_marginRight="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time"
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="09:00"
                 android:textColor="@color/black"
-                android:textSize="11sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

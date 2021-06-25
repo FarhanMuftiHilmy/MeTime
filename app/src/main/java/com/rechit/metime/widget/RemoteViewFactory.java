@@ -6,15 +6,11 @@ import android.os.Binder;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
-import com.rechit.metime.database.DatabaseHelper;
+import com.rechit.metime.helper.DatabaseHelper;
 import com.rechit.metime.model.Time;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class RemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {

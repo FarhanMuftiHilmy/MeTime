@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,8 +39,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Button btnLogOut = findViewById(R.id.btn_logout);
         Button btnEdtProfile = findViewById(R.id.btn_edt_profile);
+        TextView selectLanguage = findViewById(R.id.select_language);
         btnLogOut.setOnClickListener(this);
         btnEdtProfile.setOnClickListener(this);
+        selectLanguage.setOnClickListener(this);
 
         ImageView imgPhoto = findViewById(R.id.img_profile);
         TextView tvUserName = findViewById(R.id.tv_nama_user);
@@ -95,11 +98,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Intent intent = new Intent(this, EditProfileActivity.class);
             intent.putExtra("EXTRA_PROFILE", user);
             startActivity(intent);
-        } else if (id == R.id.btn_logout) {
+        }else if (id == R.id.btn_logout) {
             new AlertDialog.Builder(this)
-                    .setMessage("Apakah Anda Yakin Ingin Keluar?")
-                    .setNegativeButton("Tidak", null)
-                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    .setIcon(R.drawable.ic_warning_delete)
+                    .setMessage(R.string.do_you_want_log_out_from_yout_account)
+                    .setNegativeButton(R.string.no, null)
+                    .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             FirebaseAuth.getInstance().signOut();
@@ -107,6 +111,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             finish();
                         }
                     }).show();
+        }else if (id == R.id.select_language){
+            Intent languageIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(languageIntent);
         }
     }
 }

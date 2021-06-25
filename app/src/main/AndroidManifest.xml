@@ -49,7 +49,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".NotificationReceiver"
+            android:name=".receiver.NotificationReceiver"
             android:enabled="true"
             android:exported="false" />
 

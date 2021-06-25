@@ -15,29 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
-import com.rechit.metime.database.DatabaseHelper;
+import com.rechit.metime.helper.DatabaseHelper;
 import com.rechit.metime.model.Time;
 import com.rechit.metime.vievmodel.TimeViewModel;
 import com.rechit.metime.view.adapter.TimeAdapter;
 import com.rechit.metime.widget.WidgetProvider;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import timerx.Stopwatch;
@@ -109,7 +100,7 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
 
             if (btnStart.getText().toString().equals("Start")){
                 if (title.isEmpty()){
-                    Toast.makeText(getActivity(), "pastikan title terisi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.title_cannot_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
 

@@ -2,10 +2,10 @@ package com.rechit.metime.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.rechit.metime.NotificationReceiver;
+import com.rechit.metime.receiver.NotificationReceiver;
 import com.rechit.metime.R;
 import com.rechit.metime.model.Activity;
 
@@ -35,8 +35,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-
-import static android.provider.Settings.System.DATE_FORMAT;
 
 public class AddEventActivity extends AppCompatActivity {
     private static final String TAG = "AddEventActivity";
@@ -58,6 +56,9 @@ public class AddEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editTitle = findViewById(R.id.edt_title);
         editDesc = findViewById(R.id.edt_detail);
@@ -74,7 +75,7 @@ public class AddEventActivity extends AppCompatActivity {
             editDesc.setText(activity.getDescription());
             btnDate.setText(activity.getDate());
             btnTime.setText(activity.getTime());
-            btnSave.setText("Update");
+            btnSave.setText(R.string.update);
         }else{
             activity = new Activity();
             btnDate.setText(getCurrentDate());
@@ -122,7 +123,7 @@ public class AddEventActivity extends AppCompatActivity {
         String date = btnDate.getText().toString();
         String time = btnTime.getText().toString();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y HH:mm", new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y HH:mm", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTimeInMillis(dateFormat.parse(date+ " " + time).getTime());
@@ -148,20 +149,20 @@ public class AddEventActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(AddEventActivity.this, "Aktivitas Tersimpan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddEventActivity.this, R.string.activity_added, Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddEventActivity.this, "Aktivitas Tidak Tersimpan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddEventActivity.this, R.string.activity_not_added, Toast.LENGTH_SHORT).show();
                             Log.d(TAG,e.toString());
                         }
 
                     });
         }else{
-            Toast.makeText(this, "Tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.field_cannot_empty, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -173,14 +174,14 @@ public class AddEventActivity extends AppCompatActivity {
                 .document(id)
                 .update(objectToHashMap(updateActivities))
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(AddEventActivity.this, "Activity Has Been Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddEventActivity.this, R.string.acctivity_has_been_updated, Toast.LENGTH_SHORT).show();
                     finish();
                 })
                 .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e(getClass().getSimpleName(),"error",e);
-                Toast.makeText(AddEventActivity.this, "Fail to Update The Activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddEventActivity.this, R.string.fail_to_update_the_activity, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -207,7 +208,7 @@ public class AddEventActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
                 calendar.set(Calendar.MINUTE,minute);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", new Locale("in", "ID"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String timeNow= simpleDateFormat.format(calendar.getTime());
                 btnTime.setText(timeNow);
             }

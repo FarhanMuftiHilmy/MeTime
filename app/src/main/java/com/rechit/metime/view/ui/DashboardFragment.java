@@ -106,12 +106,15 @@ public class DashboardFragment extends Fragment {
         RecyclerView noteList = view.findViewById(R.id.rv_note_dashboard);
         RecyclerView rvListTime = view.findViewById(R.id.rv_time_dashboard);
 
-
-
-
-
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bn_main);
 
+        UserViewModel userViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
+        userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user ->  {
+            this.user = user;
+            loadProfilePicFromUrl(imgPhoto, user.getImageUrl());
+        });
+        userViewModel.query(firebaseUser.getUid());
+        userViewModel.addSnapshotListener(firebaseUser.getUid());
 
         DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Profile").document("new");
 
@@ -120,7 +123,6 @@ public class DashboardFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
                     String name = documentSnapshot.getString("username");
-
                     username.setText(name);
 
                 } else{
@@ -173,12 +175,6 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
         imgPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,9 +217,9 @@ public class DashboardFragment extends Fragment {
                     public boolean onLongClick(View v) {
                         new AlertDialog.Builder(view.getContext())
                                 .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setTitle("Are you sure?")
-                                .setMessage("Do you want to delete this note?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                .setTitle(R.string.delete_notes)
+                                .setMessage(R.string.do_you_want_to_delete_this_note)
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Notes").document(docId);
@@ -235,12 +231,12 @@ public class DashboardFragment extends Fragment {
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull @NotNull Exception e) {
-                                                Toast.makeText(getContext(), "Error in deleting Notes", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), R.string.error_in_deleting_notes, Toast.LENGTH_SHORT).show();
                                             }
                                         });
-                                        Toast.makeText(getContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), R.string.note_deleted, Toast.LENGTH_SHORT).show();
                                     }
-                                }).setNegativeButton("No", null).show();
+                                }).setNegativeButton(R.string.no, null).show();
 
                         return true;
                     }
@@ -357,13 +353,13 @@ public class DashboardFragment extends Fragment {
                                 activityAdapter.notifyDataSetChanged();
                             }
                         }else{
-                            Toast.makeText(getActivity(), "Data Error"+task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.data_error , Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), "Fail To Get Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.fail_to_get_data, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -374,12 +370,12 @@ public class DashboardFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        Toast.makeText(getActivity(), "Document Was Delete", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.document_was_delete, Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(getActivity(), "Error Delete Document", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.error_delete_document, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, e.toString());
             }
         });

@@ -46,7 +46,7 @@
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Write Your Note Here"
+        android:hint="@string/write_your_note_here"
         android:inputType="textMultiLine"
         android:textColor="#000000"/>
 

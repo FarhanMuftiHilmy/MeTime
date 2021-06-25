@@ -50,10 +50,11 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
             @Override
             public boolean onLongClick(View v) {
                 new AlertDialog.Builder(v.getContext())
-                        .setTitle("Delete Activity")
-                        .setMessage("Do you want to remove this activity")
-                        .setNegativeButton("No", null)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setIcon(R.drawable.ic_warning_delete)
+                        .setTitle(R.string.delete_activity)
+                        .setMessage(R.string.do_you_want_to_remove_this_activity)
+                        .setNegativeButton(R.string.no, null)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 activityCallback.onActivityDelete(activity);

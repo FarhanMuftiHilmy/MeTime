@@ -139,12 +139,12 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        Toast.makeText(getActivity(), "Document Was Delete", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.document_was_delete, Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(getActivity(), "Error Delete Document", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.error_delete_document, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, e.toString());
             }
         });
