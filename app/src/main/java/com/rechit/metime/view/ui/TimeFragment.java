@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
     private TextView timeProgres, activityProgres;
     private Button btnStart;
     private TimeViewModel tvm;
+    private final String TAG = getClass().getSimpleName();
 
     public TimeFragment(){
 
@@ -72,6 +74,9 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
         rvListTime.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         TimeAdapter adapter = new TimeAdapter(this);
         rvListTime.setAdapter(adapter);
+
+        Log.i(TAG, "Ini kenapa nol " + adapter.getItemCount());
+
 
         tvm = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TimeViewModel.class);
         tvm.getTimeListLiveData().observe(getViewLifecycleOwner(), adapter::setData);
@@ -114,8 +119,11 @@ public class TimeFragment extends Fragment implements TimeAdapter.TimeAdapterCal
 
                 tvm.insert(time);
                 timeProgres.setText("00:00:00");
+
             }
         });
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override

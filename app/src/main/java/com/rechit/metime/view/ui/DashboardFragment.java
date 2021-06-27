@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -79,6 +83,17 @@ public class DashboardFragment extends Fragment {
     private ArrayList<Item> items;
     private ArrayList<Activity> activitytList;
     private TimeViewModel tvm;
+    public final CollectionReference reference =  FirebaseFirestore.getInstance().collection("User");
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final MutableLiveData<ArrayList<Time>> timeListLiveData = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<Time>> getTimeListLiveData(){
+        return timeListLiveData;
+    }
+
+    private final MutableLiveData<Time> timeLiveData = new MutableLiveData<Time>();
+    public MutableLiveData<Time> getTimeLiveData(){
+        return timeLiveData;
+    }
     FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
 
 
@@ -110,6 +125,7 @@ public class DashboardFragment extends Fragment {
 
 
 
+
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bn_main);
 
 
@@ -133,6 +149,7 @@ public class DashboardFragment extends Fragment {
                 Toast.makeText(getActivity(), "Data Error"+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
         goal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,12 +204,13 @@ public class DashboardFragment extends Fragment {
         });
 
         //NOTE DISPLAY
-
         Query query = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Notes").orderBy("title", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
                 .build();
+
+
 
         noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
             @Override
@@ -254,11 +272,22 @@ public class DashboardFragment extends Fragment {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_view_layout, parent, false);
                 return new NoteViewHolder(view);
             }
+
+            // Add this
+            @Override
+            public void onDataChanged() {
+                // do your thing
+                if(getItemCount() != 0){
+                    idea.setVisibility(View.INVISIBLE);
+                }
+            }
         };
 
         noteList.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 //        noteList.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         noteList.setAdapter(noteAdapter);
+
+
 
         //ACTIVITY DISPLAY
 
@@ -285,13 +314,18 @@ public class DashboardFragment extends Fragment {
         //TIME DISPLAY
         rvListTime.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         TimeAdapter adapter = new TimeAdapter(this::onTimeDeleted);
+        if(adapter.getItemCount() != 0){
+
+        }
+        Log.i(TAG, "Ini kenapa nol " + activityAdapter.getItemCount());
         rvListTime.setAdapter(adapter);
+
 
         tvm = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TimeViewModel.class);
         tvm.getTimeListLiveData().observe(getViewLifecycleOwner(), adapter::setData);
 
         if (firebaseUser !=null){
-            tvm.query();
+            noteQuery();
             tvm.addSnapshotListener();
         }
 
@@ -355,6 +389,8 @@ public class DashboardFragment extends Fragment {
                                 activitymodel.setId(document.getId());
                                 activitytList.add(activitymodel);
                                 activityAdapter.notifyDataSetChanged();
+                                goal.setVisibility(View.INVISIBLE);
+
                             }
                         }else{
                             Toast.makeText(getActivity(), "Data Error"+task.getException(), Toast.LENGTH_SHORT).show();
@@ -388,5 +424,29 @@ public class DashboardFragment extends Fragment {
     public void onTimeDeleted(Time time) {
         tvm.delete(time);
     }
+
+    public void noteQuery() {
+        reference.document(firebaseUser.getUid()).collection("Time")
+                .orderBy("timeStamps", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        ArrayList<Time> timeList = new ArrayList<>();
+                        if (task.getResult() != null) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                Time waktu = document.toObject(Time.class);
+                                timeList.add(waktu);
+                                time.setVisibility(View.INVISIBLE);
+                                if (waktu != null) Log.d(TAG, "qury : " + waktu.getTitleTime());
+                            }
+                        }
+                        timeListLiveData.postValue(timeList);
+                        Log.d(TAG, "Document was queried");
+
+                    } else Log.w(TAG, "error quering document", task.getException() );
+                });
+    }
+
+
 
 }

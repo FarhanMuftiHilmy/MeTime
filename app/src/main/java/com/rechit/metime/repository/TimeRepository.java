@@ -1,6 +1,7 @@
 package com.rechit.metime.repository;
 
 import android.util.Log;
+import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,6 +12,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.rechit.metime.model.Time;
+import com.rechit.metime.view.ui.DashboardFragment;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +52,7 @@ public class TimeRepository {
                         }
                         timeListLiveData.postValue(timeList);
                         Log.d(TAG, "Document was queried");
+
                     } else Log.w(TAG, "error quering document", task.getException() );
                 });
     }
@@ -83,6 +87,7 @@ public class TimeRepository {
                    }
                 });
     }
+
 
     private Map<String,Object> objectToHashMap(Time time){
         Map<String,Object> document = new HashMap<>();

@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rechit.metime.R;
+import com.rechit.metime.view.ui.DashboardFragment;
 import com.rechit.metime.view.ui.NoteFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -79,6 +80,7 @@ public class EditNoteActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(EditNoteActivity.this, "Note Saved", Toast.LENGTH_SHORT).show();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
