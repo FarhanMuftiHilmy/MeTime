@@ -1,5 +1,6 @@
 package com.rechit.metime.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,8 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +21,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.rechit.metime.R;
 import com.rechit.metime.Utils.LoadingDialog;
 import com.rechit.metime.model.User;
 import com.rechit.metime.vievmodel.UserViewModel;
+import com.rechit.metime.view.ui.CalenderFragment;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.rechit.metime.Utils.AppUtils.getFixText;
 import static com.rechit.metime.Utils.AppUtils.loadProfilePicFromUrl;
