@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Help Center"
+                android:text="@string/help_center"
+                android:textSize="14sp"
                 android:textColor="#3E3E3E" />
 
 
@@ -60,45 +61,47 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_light"
-                android:text="How to track your time" />
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/how_to_track_your_time"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:fontFamily="@font/poppins_light"
-                android:text="Click the clock button,
-then fill the activity column
-and click start button." />
+                android:textSize="14sp"
+                android:text="@string/click_the_button_then_fill_the_activity_coloumn_and_click_start_button" />
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:fontFamily="@font/poppins_light"
-                android:text="How to add your schedule" />
-            <TextView
-                android:layout_marginStart="8dp"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:fontFamily="@font/poppins_light"
-                android:text="Click the calendar button,
-then click the plus button on
-the My Schedule page.
-now you can adjust your schedule." />
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:fontFamily="@font/poppins_light"
-                android:text="How to take a notes" />
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="@string/how_to_add_your_schedule" />
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:fontFamily="@font/poppins_light"
-                android:text="Click the notes button,
-then click the plus button
-on the My Notes page. " />
-
-
+                android:textSize="14sp"
+                android:text="@string/click_the_calendar_button_then_click_the_plus_button_on_the_my_schedule_page_now_you_can_adjust_your_schedule" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="@string/how_to_take_a_notes" />
+            <TextView
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:textSize="14sp"
+                android:text="@string/click_the_notes_button_then_click_the_plus_button_on_the_my_notes_page" />
 
         </LinearLayout>
 

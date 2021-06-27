@@ -25,8 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Language"
-                android:textColor="#3E3E3E" />
+                android:text="@string/language"
+                android:textColor="#3E3E3E"
+                android:textSize="14sp"/>
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -58,15 +59,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/select_language"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/poppins_light"
-                android:text="Indonesia" />
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/poppins_light"
-                android:text="English" />
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/select_your_language"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

@@ -84,9 +84,9 @@ public class SignUpActivity extends AppCompatActivity {
                 String txt_password = Objects.requireNonNull(password.getText()).toString().trim();
 
                 if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
-                    Toast.makeText(SignUpActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, R.string.field_cannot_empty, Toast.LENGTH_SHORT).show();
                 } else if(txt_password.length() < 6){
-                    Toast.makeText(SignUpActivity.this, "password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, R.string.password_must_be_at_least_6_characters, Toast.LENGTH_SHORT).show();
                 } else{
                     register(txt_username, txt_email, txt_password);
                 }
@@ -102,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getBaseContext(), "Register Successfully...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.register_successfully, Toast.LENGTH_LONG).show();
                     userId  = auth.getCurrentUser().getUid();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     DocumentReference documentReference = fstore.collection("User").document(userId).collection("Profile").document("new");

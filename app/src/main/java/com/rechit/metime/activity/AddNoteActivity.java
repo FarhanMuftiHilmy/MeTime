@@ -49,8 +49,6 @@ public class AddNoteActivity extends AppCompatActivity {
 
     }
 
-
-
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             String nTitle = noteTitle.getText().toString();
@@ -72,13 +70,13 @@ public class AddNoteActivity extends AppCompatActivity {
             documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    Toast.makeText(AddNoteActivity.this, "Note Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNoteActivity.this, R.string.note_added, Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(AddNoteActivity.this, "Error, Try Again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNoteActivity.this, R.string.error_try_again, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.INVISIBLE);
 
                 }
@@ -95,7 +93,7 @@ public class AddNoteActivity extends AppCompatActivity {
         String nContent = noteContent.getText().toString();
 
         if(nTitle.isEmpty() || nContent.isEmpty()){
-            Toast.makeText(this, "Can't save with empty field", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannot_save_with_empty_field, Toast.LENGTH_SHORT).show();
         }
 
         //save note to Firebase
@@ -108,13 +106,13 @@ public class AddNoteActivity extends AppCompatActivity {
         documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(AddNoteActivity.this, "Note Added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddNoteActivity.this, R.string.note_added, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(AddNoteActivity.this, "Error, Try Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddNoteActivity.this, R.string.error_try_again, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,7 +1,6 @@
 package com.rechit.metime.view.adapter;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.rechit.metime.R;
+import com.rechit.metime.helper.DatabaseHelper;
 import com.rechit.metime.model.Time;
 import java.util.ArrayList;
 
@@ -19,6 +19,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder> {
 
     private final ArrayList<Time> timeList = new ArrayList<>();
     private TimeAdapterCallback callback;
+    private DatabaseHelper dbHelper;
 
     public TimeAdapter(TimeAdapterCallback callback) {
         this.callback = callback;
@@ -44,10 +45,11 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder> {
         holder.textViewTimeTracking.setText(timeList.get(position).getTrackingTime());
         holder.btnDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(v.getContext())
-                    .setTitle("Delete Time Tracking")
-                    .setMessage("Do you want to remove this activity")
-                    .setNegativeButton("No", null)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setIcon(R.drawable.ic_warning_delete)
+                    .setTitle(R.string.delete_time_tracking)
+                    .setMessage(R.string.do_you_want_to_remove_this_activity)
+                    .setNegativeButton(R.string.no, null)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             callback.onTimeDeleted(time);
@@ -77,4 +79,5 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder> {
     public interface TimeAdapterCallback{
         void onTimeDeleted(Time time);
     }
+
 }

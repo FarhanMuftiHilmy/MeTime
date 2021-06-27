@@ -90,19 +90,12 @@ public class NoteFragment extends Fragment {
         return fragment;
     }
 
-
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,11 +108,8 @@ public class NoteFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
 //        GridView gridView = getView().findViewById(R.id.gridView);
-
-
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
 
         Query query = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Notes").orderBy("title", Query.Direction.DESCENDING);
 
@@ -153,10 +143,10 @@ public class NoteFragment extends Fragment {
                     @Override
                     public boolean onLongClick(View v) {
                         new AlertDialog.Builder(view.getContext())
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setTitle("Are you sure?")
-                                .setMessage("Do you want to delete this note?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                .setIcon(R.drawable.ic_warning_delete)
+                                .setTitle(R.string.delete_notes)
+                                .setMessage(R.string.do_you_want_to_delete_this_note)
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Notes").document(docId);
@@ -168,12 +158,12 @@ public class NoteFragment extends Fragment {
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull @NotNull Exception e) {
-                                                Toast.makeText(getContext(), "Error in deleting Notes", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), R.string.error_try_again, Toast.LENGTH_SHORT).show();
                                             }
                                         });
-                                        Toast.makeText(getContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), R.string.note_deleted, Toast.LENGTH_SHORT).show();
                                     }
-                                }).setNegativeButton("No", null).show();
+                                }).setNegativeButton(R.string.no, null).show();
 
                         return true;
                     }

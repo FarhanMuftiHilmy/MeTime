@@ -32,8 +32,6 @@
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +32,12 @@ import com.rechit.metime.view.adapter.ActivityAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class CalenderFragment extends Fragment implements ActivityAdapter.ActivityAdapterCallback{
 
@@ -40,6 +46,7 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
     private ActivityAdapter adapter;
     private RecyclerView rvListActivity;
     private View view;
+    private CalendarView calendarView;
     private ArrayList<Activity> activitytList;
     private FloatingActionButton fabAdd;
 
@@ -67,8 +74,21 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
         adapter = new ActivityAdapter(getActivity(), activitytList, this);
         rvListActivity.setAdapter(adapter);
 
+        calendarView = view.findViewById(R.id.calender_view);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                calendarView.setDate(calendar.getTimeInMillis());
+                firstQuery();
+            }
+        });
+
         db=FirebaseFirestore.getInstance();
-        query();
+        firstQuery();
 
         db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("Activity").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -76,7 +96,7 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
                 if(error !=null){
                     Log.w(getClass().getSimpleName(),"failed get update", error);
                 }else if(value !=null){
-                    query();
+                    firstQuery();
                     Log.d(getClass().getSimpleName(), "Changes detected");
                 }
             }
@@ -85,9 +105,9 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
         return view;
     }
 
-    public void query(){
+    public void query(String date){
         db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("Activity")
-                .get()
+                .whereEqualTo("date", date).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -98,7 +118,9 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
                                 activitymodel.setId(document.getId());
                                 activitytList.add(activitymodel);
                                 adapter.notifyDataSetChanged();
+                                Log.d(TAG, "complete" + activitymodel.toString());
                             }
+
                         }else{
                             Toast.makeText(getActivity(), "Data Error"+task.getException(), Toast.LENGTH_SHORT).show();
                         }
@@ -117,15 +139,24 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        Toast.makeText(getActivity(), "Document Was Delete", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.document_was_delete, Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(getActivity(), "Error Delete Document", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.error_delete_document, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, e.toString());
             }
         });
+    }
+
+    public void firstQuery(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/y", Locale.getDefault());
+        Date date = new Date();
+        date.setTime(calendarView.getDate());
+        String selectedDate = dateFormat.format(date);
+        query(selectedDate);
+        Log.d(TAG, selectedDate);
     }
 
     @Override
