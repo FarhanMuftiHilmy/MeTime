@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,6 +48,7 @@ public class AddEventActivity extends AppCompatActivity {
     private static final String KEY_DATE= "date";
     private static final String KEY_TIME= "time";
     private static final String KEY_DETAILS = "description";
+    private Timestamp timestamp;
     private Activity activity;
 
     private EditText editTitle, editDesc;
@@ -127,7 +129,7 @@ public class AddEventActivity extends AppCompatActivity {
         String date = btnDate.getText().toString();
         String time = btnTime.getText().toString();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/y HH:mm", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTimeInMillis(dateFormat.parse(date+ " " + time).getTime());
@@ -232,7 +234,7 @@ public class AddEventActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/y", Locale.getDefault());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 String dateNow= simpleDateFormat.format(calendar.getTime());
                 btnDate.setText(dateNow);
             }
@@ -241,7 +243,7 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public static String getCurrentDate(){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/y", Locale.getDefault());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }

@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.expansionpanel.ExpansionLayout;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.rechit.metime.R;
@@ -106,6 +108,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                    .requestIdToken(getResources().getString(R.string.default_web_client_id))
+                                    .requestEmail()
+                                    .build();
+                            GoogleSignIn.getClient(getApplicationContext(),gso).signOut();
                             FirebaseAuth.getInstance().signOut();
                             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                             finish();

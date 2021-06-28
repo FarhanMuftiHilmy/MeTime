@@ -82,7 +82,7 @@ public class UserRepository {
     }
 
     public void addSnapshotListener(String uid){
-        reference.addSnapshotListener((value, error) -> {
+        reference.document(firebaseUser.getUid()).collection("Profile").document("new").addSnapshotListener((value, error) -> {
             if (error != null)
                 Log.w(TAG, "Listen Failed", error );
             else if  (value !=null){

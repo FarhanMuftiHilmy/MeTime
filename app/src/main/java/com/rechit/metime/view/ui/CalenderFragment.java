@@ -117,10 +117,9 @@ public class CalenderFragment extends Fragment implements ActivityAdapter.Activi
                                 Activity activitymodel = document.toObject(Activity.class);
                                 activitymodel.setId(document.getId());
                                 activitytList.add(activitymodel);
-                                adapter.notifyDataSetChanged();
                                 Log.d(TAG, "complete" + activitymodel.toString());
                             }
-
+                            adapter.notifyDataSetChanged();
                         }else{
                             Toast.makeText(getActivity(), "Data Error"+task.getException(), Toast.LENGTH_SHORT).show();
                         }
