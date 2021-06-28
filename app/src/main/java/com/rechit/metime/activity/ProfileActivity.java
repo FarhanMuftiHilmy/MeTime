@@ -103,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     .setIcon(R.drawable.ic_warning_delete)
                     .setMessage(R.string.do_you_want_log_out_from_yout_account)
                     .setNegativeButton(R.string.no, null)
-                    .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             FirebaseAuth.getInstance().signOut();

@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -127,29 +126,30 @@ public class DashboardFragment extends Fragment {
         userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user ->  {
             this.user = user;
             loadProfilePicFromUrl(imgPhoto, user.getImageUrl());
+            username.setText(user.getUsername());
         });
         userViewModel.query(firebaseUser.getUid());
         userViewModel.addSnapshotListener(firebaseUser.getUid());
 
-        DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Profile").document("new");
-
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    String name = documentSnapshot.getString("username");
-                    username.setText(name);
-
-                } else{
-                    Toast.makeText(getActivity(), "Dokumen tidak ada", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(getActivity(), "Data Error"+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        DocumentReference documentReference = firebaseFirestore.collection("User").document(firebaseUser.getUid()).collection("Profile").document("new");
+//
+//        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if(documentSnapshot.exists()){
+//                    String name = documentSnapshot.getString("username");
+//                    username.setText(name);
+//
+//                } else{
+//                    Toast.makeText(getActivity(), "Dokumen tidak ada", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull @NotNull Exception e) {
+//                Toast.makeText(getActivity(), "Data Error"+e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         goal.setOnClickListener(new View.OnClickListener() {

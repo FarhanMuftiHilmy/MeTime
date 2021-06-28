@@ -7,6 +7,7 @@
         android:id="@+id/secion_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:background="@drawable/widget_section_top">
 
         <ImageView
@@ -19,8 +20,12 @@
             android:id="@+id/appwidget_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/appwidget_logo"
+            android:layout_alignBottom="@+id/appwidget_logo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/poppins_semibold"
-            android:layout_alignParentRight="true"
             android:text="METIME"
             android:textColor="@color/black"
             android:textSize="14sp" />
@@ -36,7 +41,7 @@
         <ListView
             android:id="@+id/item_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </RelativeLayout>
